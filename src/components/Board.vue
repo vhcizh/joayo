@@ -7,18 +7,20 @@
           <th scope="col">제목</th>
           <th scope="col"></th>
           <th scope="col"></th>
+          <th scope="col">조회수</th>
           <th scope="col">작성자</th>
           <th scope="col">작성일</th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr>
-          <th scope="row">1</th>
-          <td>제목제목제목제목제목제목제목제목</td>
-          <td><i class="bi bi-suit-heart"></i> 3</td>
-          <td><i class="bi bi-chat-left-text"></i> 6</td>
-          <td>ㅁㄴㅇㄹ</td>
-          <td>1213123</td>
+        <tr v-for="post in posts" :key="post.number">
+          <th scope="row">{{ post.number }}</th>
+          <td>{{ post.title }}</td>
+          <td><i class="bi bi-suit-heart"></i> {{ post.voteCount }}</td>
+          <td><i class="bi bi-chat-left-text"></i> {{ post.commentCount }}</td>
+          <td>{{ post.viewCount }}</td>
+          <td>{{ post.writer }}</td>
+          <td>{{ post.postingDate }}</td>
         </tr>
       </tbody>
     </table>
@@ -26,8 +28,21 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
-  name: 'board-list'
+  name: 'board-list',
+
+  data() {
+    return {
+      posts: []
+    }
+  },
+  mounted() {
+    axios.get("/api/posts").then( res => {
+        this.posts = res.data
+    })
+  }
 }
 </script>
 
