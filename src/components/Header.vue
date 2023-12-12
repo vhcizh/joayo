@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+      <!-- 헤더 로고 -->
       <div class="col-md-3 mb-2 mb-md-0">
         <router-link to="/">
           <a href="#" class="d-inline-flex link-body-emphasis text-decoration-none">
@@ -8,19 +10,17 @@
           </a>
         </router-link>
       </div>
-
-      <!-- <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-      </ul> -->
-
+      <!-- 헤더 로고 -->
       
-
+      <!-- 헤더 로그인/회원가입 -->
       <div class="col-md-3 text-end">
-        <router-link to="/login"><button type="button" class="btn btn-outline-primary me-2">Login</button></router-link>
-        <router-link to ="/join"><button type="button" class="btn btn-primary">Sign-up</button></router-link>
-        
+        <LinkedButton msg="Login" linked="/login"/>
+        <LinkedButton msg="Join" linked="/join"/>
       </div>
+      <!-- 헤더 로그인/회원가입 -->
 
+
+      <!-- 마이페이지 토글 -->
       <div class="dropdown">
         <button @click="toggle" type="button" class="btn btn-primary">
           <i class="bi bi-person-fill"></i>
@@ -34,13 +34,19 @@
           </ul>
         </div>
       </div>
+      <!-- 마이페이지 토글 -->
     </header>
   </div>
 </template>
 
 <script>
+import LinkedButton from '@/components/LinkedButton.vue'
+
 export default {
   name: "header-vue",
+  components : {
+    LinkedButton
+  },
   data() {
     return {
       open: false
