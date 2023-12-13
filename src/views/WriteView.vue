@@ -1,39 +1,54 @@
 <template>
     <div class="container bg-body-tertiary">
-    <h1>글쓰기</h1>
+        <h1>글쓰기</h1>
+        <input type="number" 
+                v-model="postData.writerId"
+                class="form-control mb-2"
+                placeholder="로그인 구현 전 임시 writerId - 1 넣을것">
         <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="글 제목을 입력하세요">
+            <input v-model="postData.title" 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="글 제목을 입력하세요">
         </div>
-        <div id="editor">
-            <p>This is some sample content.</p>
+        <textarea class="form-control" 
+                v-model="postData.contents" 
+                rows="10"
+                placeholder="글 내용을 입력하세요">
+        </textarea>
+        <div class="py-3 text-end">
+            <button class="btn btn-primary ms-2" type="button" @click="submit()">등록</button>
         </div>
     </div>
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import axios from 'axios';
 
 export default {
-    mounted() {
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => { console.error( error ); });
+    data() {
+        return {
+            editor: null,
+            postData: {
+                writerId: '',
+                title: '',
+                contents:''
+            },
+            postingId:null
+        };
     },
+    methods: {
+        submit() {
+            axios.post('/api/board/postings', this.postData)
+                .then(({data})=>{
+                    this.postingId=data.id
+                    this.$router.push(`/postings/${this.postingId}`);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }
 }
 
 </script>
-
-<style>
-.ck-editor__editable[role="textbox"] {
-    /* editing area */
-    min-height: 300px;
-}
-
-.ck-content .image {
-    /* block images */
-    max-width: 80%;
-    margin: 20px auto;
-}
-
-</style>

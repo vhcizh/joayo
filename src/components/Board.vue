@@ -43,7 +43,6 @@ export default {
   },
   mounted() {
     axios.get("/api/board/postings").then( ({data}) => {
-        console.log(data.data)
         this.postings = data.data
     })
   }
