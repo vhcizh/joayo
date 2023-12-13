@@ -3,17 +3,12 @@
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
       <!-- 헤더 로고 -->
-      <div class="col-md-3 mb-2 mb-md-0">
-        <router-link to="/">
-          <a href="#" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img id="logo" alt="logo" src="../assets/logo.png">
-          </a>
-        </router-link>
-      </div>
+
+        <Logo/>
       <!-- 헤더 로고 -->
       
       <!-- 헤더 로그인/회원가입 -->
-      <div class="col-md-3 text-end">
+      <div class="text-end">
         <LinkedButton msg="Login" linked="/login"/>
         <LinkedButton msg="Join" linked="/join"/>
       </div>
@@ -41,11 +36,13 @@
 
 <script>
 import LinkedButton from '@/components/LinkedButton.vue'
+import Logo from '@/components/Logo.vue'
 
 export default {
   name: "header-vue",
   components : {
-    LinkedButton
+    LinkedButton,
+    Logo
   },
   data() {
     return {
@@ -60,11 +57,6 @@ export default {
 }
 </script>
 
-<style scoped>
-#logo {
-  width:30%;
-}
-
-
+<style>
 
 </style>
