@@ -26,9 +26,15 @@ const routes = [
   },
   {
     path: '/postings/:postingId',
-    name: 'postings',
+    name: 'posting',
     component: () => import('@/views/PostingView.vue')
+  },
+  {
+    path: '/postings/:postingId/modify',
+    name: 'modify-posting',
+    component: () => import('@/views/ModifyView.vue')
   }
+
 ]
 
 const router = createRouter({

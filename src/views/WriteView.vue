@@ -28,7 +28,6 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            editor: null,
             postData: {
                 writerId: '',
                 title: '',

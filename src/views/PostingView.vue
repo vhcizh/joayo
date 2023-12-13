@@ -14,14 +14,19 @@
     <div>
         댓글 수 : {{ posting.commentCount }}
     </div>
+    <LinkedButton msg="목록으로" linked="/"/>
+    <LinkedButton msg="수정하기" :linked="`/postings/${posting.postingId}/modify`"/>
 </template>
 
 <script>
 import axios from 'axios';
+import LinkedButton from '@/components/LinkedButton.vue';
 
 export default {
     name: "posting-view",
-
+    components:{
+        LinkedButton
+    },
     data() {
         return {
             posting:{}
@@ -30,10 +35,13 @@ export default {
     mounted() {
         const postingId = this.$route.params.postingId;
 
-        axios.get(`/api/board/postings/${postingId}`).then( ({data}) => {
-            console.log(data)
-            this.posting = data.data
-        })
+        axios.get(`/api/board/postings/${postingId}`)
+            .then(({data}) => {
+                this.posting = data.data
+            })
+            .catch(error => {
+                    console.error(error);
+            });
     },
 }
 </script>
