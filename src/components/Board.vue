@@ -1,9 +1,9 @@
 <template>
     <table class="table table-hover align-middle">
-      <thead>
+      <thead class="table-light">
         <tr>
           <th scope="col">#</th>
-          <th scope="col" class="col-2">제목</th>
+          <th scope="col" class="col-6">제목</th>
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col">조회수</th>
@@ -14,11 +14,12 @@
       <tbody class="table-group-divider">
         <tr v-for="posting in postings" :key="posting.postingId">
             <th scope="row">{{ posting.postingId }}</th>
-            
-            <td class="col-2"><router-link :to="`/postings/${posting.postingId}`">
-              {{ posting.title }}
-            </router-link></td>
-            <td><i class="bi bi-suit-heart"></i> {{ posting.voteCount }}</td>
+            <td class="col-6">
+              <router-link :to="`/postings/${posting.postingId}`">
+                {{ posting.title }}
+              </router-link>
+            </td>
+            <td><i class="bi bi-suit-heart"></i> {{ posting.likeCount }}</td>
             <td><i class="bi bi-chat-left-text"></i> {{ posting.commentCount }}</td>
             <td>{{ posting.viewCount }}</td>
             <td>{{ posting.writer }}</td>

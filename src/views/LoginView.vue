@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center py-4 bg-body-tertiary">
       <main class="form-signin w-100 m-auto">
         <form>
-          <img class="mb-4" src="../assets/logo.png" alt="Vue logo" width="72" height="57">
+          <img class="mb-4" src="../assets/logo.png" alt="Vue logo" width="72" height="auto">
           <h1 class="h3 mb-3 fw-normal">Welcome</h1>
 
           <div class="form-floating">
