@@ -7,12 +7,25 @@
           <h1 class="h3 mb-3 fw-normal">로그인</h1>
 
           <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+              <input type="email" 
+                    class="form-control" 
+                       id="login-email" 
+              placeholder="email"
+                  v-model=formData.email
+                  @focus="clearError"
+                  required>
+              <label for="login-email">email</label>
           </div>
+
           <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+              <input type="password" 
+                    class="form-control" 
+                       id="login-password" 
+              placeholder="password"
+                  v-model=formData.password
+                  @focus="clearError"
+                  required>
+              <label for="login-password">password</label>
           </div>
           <button class="btn btn-primary w-100 py-2 mt-4" type="submit">로그인</button>
         </form>
@@ -23,10 +36,36 @@
 
 <script>
 import Logo from '@/components/Logo.vue'
+import axios from 'axios'
 
 export default {
   components: {
-    Logo
+    Logo,
+  },
+  data() {
+    return {
+      formData: {
+        email:'',
+        password:''
+      },
+      errorMessage:''
+    }
+  },
+  methods: {
+    join() {
+      if (this.validateNickname() && this.validatePassword()) {
+        axios.get('', this.formData)
+                  .then(()=>{
+                      this.$router.push(`/`);
+                  })
+                  .catch(e => {
+                    this.errorMessage = e.response.data;
+                  });
+       }
+    },
+    clearError() {
+      this.errorMessage='';
+    }
   }
 }
 </script>
