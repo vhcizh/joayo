@@ -8,7 +8,7 @@
       <!-- 헤더 로고 -->
       
       <!-- 헤더 로그인/회원가입 -->
-      <div class="text-end">
+      <div v-if="!$store.state.account.id" class="text-end">
         <LinkedButton msg="Login" linked="/login"/>
         <LinkedButton msg="Join" linked="/join"/>
       </div>
@@ -16,7 +16,7 @@
 
 
       <!-- 마이페이지 토글 -->
-      <div class="dropdown">
+      <div v-else class="dropdown">
         <button @click="toggle" type="button" class="btn btn-primary">
           <i class="bi bi-person-fill"></i>
         </button>
@@ -25,7 +25,7 @@
             <li><a class="dropdown-item rounded-2" href="#">프로필</a></li>
             <li><a class="dropdown-item rounded-2" href="#">작성 글</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item rounded-2" href="#">로그아웃</a></li>
+            <li><a class="dropdown-item rounded-2" href="#" @click="logout()">로그아웃</a></li>
           </ul>
         </div>
       </div>
@@ -37,6 +37,7 @@
 <script>
 import LinkedButton from '@/components/LinkedButton.vue'
 import Logo from '@/components/Logo.vue'
+import store from '@/store'
 
 export default {
   name: "header-vue",
@@ -46,13 +47,17 @@ export default {
   },
   data() {
     return {
-      open: false
+      open: false,
     }
   },
   methods: {
     toggle() {
       this.open = !this.open
-    }
+    },
+    logout(){
+      store.commit('setAccount', 0)
+      this.$router.push("/");
+    },
   }
 }
 </script>

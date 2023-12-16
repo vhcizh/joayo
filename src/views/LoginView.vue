@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex align-items-center py-4 bg-body-tertiary">
       <main class="form-signin w-100 m-auto">
-        <form>
+        <form @submit.prevent="login">
           <Logo/>
           <h1 class="h3 mb-3 fw-normal">로그인</h1>
 
@@ -36,6 +36,7 @@
 
 <script>
 import Logo from '@/components/Logo.vue'
+import store from '@/store';
 import axios from 'axios'
 
 export default {
@@ -52,16 +53,18 @@ export default {
     }
   },
   methods: {
-    join() {
-      if (this.validateNickname() && this.validatePassword()) {
-        axios.get('', this.formData)
-                  .then(()=>{
+    login() {
+        axios.post('/api/members/login', this.formData)
+                  .then((res)=>{
+                    console.log(res)
+                      alert('로그인 성공' + res.data)
+                      store.commit('setAccount', res.data)
                       this.$router.push(`/`);
                   })
                   .catch(e => {
                     this.errorMessage = e.response.data;
+                    alert(this.errorMessage)
                   });
-       }
     },
     clearError() {
       this.errorMessage='';

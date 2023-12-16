@@ -1,10 +1,6 @@
 <template>
     <div class="container bg-body-tertiary">
         <h1>글쓰기</h1>
-        <input type="number" 
-                v-model="postData.writerId"
-                class="form-control mb-2"
-                placeholder="로그인 구현 전 임시 writerId - 1 넣을것">
         <div class="mb-3">
             <input v-model="postData.title" 
                     type="text" 
@@ -24,12 +20,13 @@
 
 <script>
 import axios from 'axios';
+import store from '@/store'
 
 export default {
     data() {
         return {
             postData: {
-                writerId: '',
+                writerId: store.state.account.id,
                 title: '',
                 contents:''
             },
