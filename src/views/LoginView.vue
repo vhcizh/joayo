@@ -11,7 +11,7 @@
                     class="form-control" 
                        id="login-email" 
               placeholder="email"
-                  v-model=formData.email
+                  v-model=formData.username
                   @focus="clearError"
                   required>
               <label for="login-email">email</label>
@@ -27,6 +27,11 @@
                   required>
               <label for="login-password">password</label>
           </div>
+
+          <div class="m-auto" id="error">
+            <p v-if="errorMessage" class="text-danger"> {{ errorMessage }} </p>
+          </div>
+
           <button class="btn btn-primary w-100 py-2 mt-4" type="submit">로그인</button>
         </form>
       </main> 
@@ -46,7 +51,7 @@ export default {
   data() {
     return {
       formData: {
-        email:'',
+        username:'',
         password:''
       },
       errorMessage:''
@@ -54,21 +59,24 @@ export default {
   },
   methods: {
     login() {
-        axios.post('/api/members/login', this.formData)
-                  .then((res)=>{
-                    console.log(res)
-                      alert('로그인 성공' + res.data)
-                      store.commit('setAccount', res.data)
-                      this.$router.push(`/`);
-                  })
-                  .catch(e => {
-                    this.errorMessage = e.response.data;
-                    alert(this.errorMessage)
-                  });
+        axios.post('/api/login', this.formData, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+              .then((res)=>{
+                  const jwt = res.headers.authorization
+                  store.commit('login', jwt)
+                  this.$router.push(`/`);
+              })
+              .catch(e => {
+                  console.log(e)
+                  this.errorMessage = e.response.data.message;
+              });
     },
     clearError() {
       this.errorMessage='';
-    }
+    },
   }
 }
 </script>
