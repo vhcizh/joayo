@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             postData: {
-                writerId: store.state.account.id,
+                email: store.state.account.email,
                 title: '',
                 contents:''
             },
@@ -35,6 +35,10 @@ export default {
     },
     methods: {
         submit() {
+            if (!this.postData.title.trim() || !this.postData.contents.trim()) {
+                alert("제목과 내용을 모두 입력하세요.");
+                return;
+            }   
             axios.post('/api/board/postings', this.postData)
                 .then(({data})=>{
                     this.postingId=data.id

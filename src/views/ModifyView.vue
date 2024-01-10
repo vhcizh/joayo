@@ -1,7 +1,7 @@
 <template>
     <div class="container bg-body-tertiary">
         <h1>글수정</h1>
-        <div>작성자 : {{ posting.writer }}</div>
+        <div>작성자 : {{ posting.nickname }}</div>
         <div class="mb-3">
             <input v-model="posting.title" 
                     type="text" 
@@ -45,6 +45,10 @@ export default {
     },
     methods: {
         submit() {
+            if (!this.posting.title.trim() || !this.posting.contents.trim()) {
+                alert("제목과 내용을 모두 입력하세요.");
+                return;
+            }   
             const postingId = this.$route.params.postingId;
             axios.patch(`/api/board/postings/${postingId}`, this.posting)
                 .then(({data}) => {
